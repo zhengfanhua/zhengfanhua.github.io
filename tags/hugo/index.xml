@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>hugo on 北辰</title>
+    <link>https://zhengfanhua.github.io/tags/hugo/</link>
+    <description>Recent content in hugo on 北辰</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 28 Sep 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhengfanhua.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>如何采用Hugo搭建博客</title>
+      <link>https://zhengfanhua.github.io/posts/hugo/</link>
+      <pubDate>Sat, 28 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhengfanhua.github.io/posts/hugo/</guid>
+      <description>使用Hugo(基于Go语言的博客框架)搭建个人博客网站(前提：已安装git) 1.Windows 64位系统下安装Hugo a.Hugo框架下载地址,找到hugo_0.55.4_Windows-64bit.zip文件进行下载，下载后进行解压，即安装完成。 b.查看是否安装成功Hugo：在D:\Hugo\hugo_0.55.4_Windows-64bit路径下，以管理员身份打开cmd控制台，然后输入hugo version，出现结果表示安装成功。 2.验证Hugo是否安装成功,用Hugo来生成个人博客 a.在D:\Hugo\hugo_0.55.4_Windows-64bit路径下，以管理员身份打开cmd控制台，然后输入hugo new site myblog(自定义的博客名) b.切换到生成的myblog(博客的根目录)文件夹目录下，进行下一步下载主题 3.下载并设置博客主题 a.Hugo主题下载地址,下面以主题m10c为例进行演示。 b.确保自己电脑上已经安装好了Git，然后打开git bash,切换到生成的myblog(博客的根目录)文件夹目录下,执行git clone https://github.com/vaga/hugo-theme-m10c.git themes/m10c,下载好的主题在D:\Hugo\hugo_0.55.4_Windows-64bit\myblog\themes目录下。 4.在本地启动个人博客 a.切换到博客的根目录下，cmd中输入命令hugo server -t m10c &amp;ndash;buildDrafts 本地启动个人博客,复制网址 http://localhost 到浏览器中，查看站点是否运行成功 5.实际写一篇文章 a.切换到博客的根目录下，cmd中输入命令hugo new post/blog.md(自定义markdown文件名)，然后会在D:\Hugo\hugo_0.55.4_Windows-64bit\myblog\content\post路径下生成了blog.md文件，然后再使用vs code或者其它能编写markdown文件的编辑器打开blog.md文件，写入博客文章的具体内容，注意不要修改原始的blog.md文件中已经有的内容！ b.接着，切换到博客的根目录下，cmd中输入命令hugo server -t m10c &amp;ndash;buildDraftsc, 复制网址http://localhost:1313/, 到浏览器中，查看站点上的内容是否已经更新完成，显示我们刚刚编写的博客文章。注意：每次修改完blog.md文件中的内容后，需要重新在cmd中输入命令hugo server -t m10c &amp;ndash;buildDrafts ，这样http://localhost:1313/ 链接中的页面才会更新。 6.将个人博客部署到远端服务器 a.上面的一系列操作，得到的博客网站的站点只能在自己的电脑上本地访问，要想别人能访问你的博客网站，必须将个人博客部署到远端服务器。首先，你要有一个github账号，然后创建一个仓库，注意：创建仓库的命名必须是你github的昵称且必须小写再加上.github.io。例如，你的github昵称是zhengfanhua,因此创建的仓库名必须是zhengfanhua.github.io。 b.接着，切换到博客的根目录下，cmd中输入命令hugo &amp;ndash;theme=m10c(主题名) &amp;ndash;baseUrl=&amp;ldquo;https://zhengfanhua.github.io/(仓库地址)&amp;quot; &amp;ndash;buildDrafts c,然后会在博客的根目录myblog下生成一个public文件夹。切换到public文件目录下，在git bash中输入命令git init,将此public文件夹变成git本地仓库，然后输入git add ., 将public文件夹下的所有文件放入暂存区中等待提交，接着输入git commit -m &amp;ldquo;我的Hugo博客第一次提交&amp;rdquo;，这样就将本地仓库中的文件提交到了远程仓库。在接着，输入git remote add origin https://github.com/zhengfanhua/zhengfanhua.github.io.git,最后，输入命令git push -u origin master,将本地仓库代码推送到远程库。 c.</description>
+    </item>
+    
+  </channel>
+</rss>

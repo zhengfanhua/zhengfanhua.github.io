@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>JQ的ajax点击事件只执行第一次的解决方案 // 北辰</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="zengfanhua" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://zhengfanhua.github.io/css/main.min.f90f5edd436ec7b74ad05479a05705770306911f721193e7845948fb07fe1335.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="JQ的ajax点击事件只执行第一次的解决方案"/>
+<meta name="twitter:description" content="最近在项目中用到了ajax的方法，在中途遇到了一个小障碍，ajax请求是正确的，可是点击事件只执行第一次点击，第二次点击的时候就无效了，只有刷新页面之后才可以点击，点击之后再点击还是无效。代码如下： $(&quot;.ttx&quot;).click(function(){ var abc=$(this).attr(&#39;id&#39;); $.ajax({ url: &#39;user.php?act=tuan_check&#39;,//请求地址 type: &#39;GET&#39;,//用get方式获取 dataType: &#39;html&#39;,//请求数据类型为html data: {user_id:abc,pass:&quot;yes&quot;},//重要：请求地址后面所带参数，格式/user.php?act=tuan_check&amp;user_id=abc&amp;pass=yes contentType: &quot;application/json; charset=utf-8&quot;,//请求内容格式 timeout: 10000,//超时10秒后报错 success: function(data){//请求成功后执行的函数，可以用alert(data);看看请求的数据以查看通过率 $(&#39;#&#39;&#43;abc).removeClass(&#39;ttx&#39;).addClass(&#39;bfo2&#39;).html(&quot;已通过&quot;); }, error: function(err){//请求失败后执行的函数 alert(&quot;正在请求，请稍候...&quot;); }});})  这个也是标准的ajax请求后台数据代码，进行前台会员审核通过与不通过的ajax操作，大家参考一下。只是点击事件出现了问题，其实是这种click写法对动态写入的dom无效，因为第一次点击的时候我改变了class值，所以单纯的click无法找到更改的class，所以只适合单一的点击事件，修复后代码如下： $(&quot;.ttx&quot;).live(&#39;click&#39;,function(){ var abc=$(this).attr(&#39;id&#39;); $.ajax({ url: &#39;user.php?act=tuan_check&#39;, type: &#39;GET&#39;, dataType: &#39;html&#39;, data: {user_id:abc,pass:&quot;yes&quot;}, contentType: &quot;application/json; charset=utf-8&quot;, timeout: 10000, success: function(data){ $(&#39;#&#39;&#43;abc).removeClass(&#39;ttx&#39;).addClass(&#39;bfo2&#39;).html(&quot;已通过&quot;);}, error: function(err){ alert(&quot;正在请求，请稍候...&quot;); }});})  扩展阅读：jq的点击事件大全： 1.bind绑定事件 $(&ldquo;#qiuye&rdquo;).bind(&lsquo;click&rsquo;,function(){&hellip;}); 绑定事件，可绑定多个事件： $(&lsquo;#qiuye&rsquo;).bind(&lsquo;click mouseover&rsquo;,function(){&hellip;});
+可绑定多个处理函数： $(&lsquo;#qiuye&rsquo;).bind({ click:function(){&hellip;}, mouseover:function(){&hellip;} })
+2.One一次性点击，只执行第一次点击，第二次点击将不再起作用，除了刷新页面。 $(&lsquo;#qiuye&rsquo;).one(&lsquo;click&rsquo;,function(){ alert(&lsquo;a&rsquo;); })
+3.live可绑定动态添加的html元素，用js写入的文档一样可以识别。 $(&lsquo;#qiuye&rsquo;)."/>
+
+    <meta property="og:title" content="JQ的ajax点击事件只执行第一次的解决方案" />
+<meta property="og:description" content="最近在项目中用到了ajax的方法，在中途遇到了一个小障碍，ajax请求是正确的，可是点击事件只执行第一次点击，第二次点击的时候就无效了，只有刷新页面之后才可以点击，点击之后再点击还是无效。代码如下： $(&quot;.ttx&quot;).click(function(){ var abc=$(this).attr(&#39;id&#39;); $.ajax({ url: &#39;user.php?act=tuan_check&#39;,//请求地址 type: &#39;GET&#39;,//用get方式获取 dataType: &#39;html&#39;,//请求数据类型为html data: {user_id:abc,pass:&quot;yes&quot;},//重要：请求地址后面所带参数，格式/user.php?act=tuan_check&amp;user_id=abc&amp;pass=yes contentType: &quot;application/json; charset=utf-8&quot;,//请求内容格式 timeout: 10000,//超时10秒后报错 success: function(data){//请求成功后执行的函数，可以用alert(data);看看请求的数据以查看通过率 $(&#39;#&#39;&#43;abc).removeClass(&#39;ttx&#39;).addClass(&#39;bfo2&#39;).html(&quot;已通过&quot;); }, error: function(err){//请求失败后执行的函数 alert(&quot;正在请求，请稍候...&quot;); }});})  这个也是标准的ajax请求后台数据代码，进行前台会员审核通过与不通过的ajax操作，大家参考一下。只是点击事件出现了问题，其实是这种click写法对动态写入的dom无效，因为第一次点击的时候我改变了class值，所以单纯的click无法找到更改的class，所以只适合单一的点击事件，修复后代码如下： $(&quot;.ttx&quot;).live(&#39;click&#39;,function(){ var abc=$(this).attr(&#39;id&#39;); $.ajax({ url: &#39;user.php?act=tuan_check&#39;, type: &#39;GET&#39;, dataType: &#39;html&#39;, data: {user_id:abc,pass:&quot;yes&quot;}, contentType: &quot;application/json; charset=utf-8&quot;, timeout: 10000, success: function(data){ $(&#39;#&#39;&#43;abc).removeClass(&#39;ttx&#39;).addClass(&#39;bfo2&#39;).html(&quot;已通过&quot;);}, error: function(err){ alert(&quot;正在请求，请稍候...&quot;); }});})  扩展阅读：jq的点击事件大全： 1.bind绑定事件 $(&ldquo;#qiuye&rdquo;).bind(&lsquo;click&rsquo;,function(){&hellip;}); 绑定事件，可绑定多个事件： $(&lsquo;#qiuye&rsquo;).bind(&lsquo;click mouseover&rsquo;,function(){&hellip;});
+可绑定多个处理函数： $(&lsquo;#qiuye&rsquo;).bind({ click:function(){&hellip;}, mouseover:function(){&hellip;} })
+2.One一次性点击，只执行第一次点击，第二次点击将不再起作用，除了刷新页面。 $(&lsquo;#qiuye&rsquo;).one(&lsquo;click&rsquo;,function(){ alert(&lsquo;a&rsquo;); })
+3.live可绑定动态添加的html元素，用js写入的文档一样可以识别。 $(&lsquo;#qiuye&rsquo;)." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhengfanhua.github.io/posts/test-9/" />
+<meta property="article:published_time" content="2019-09-29T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-09-29T00:00:00+00:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://zhengfanhua.github.io"><img class="app-header-avatar" src="/avatar.jpg" alt="zengfanhua" /></a>
+      <h1>北辰</h1>
+      <p>我使用Hugo建立的个人博客,记录我的学习历程</p>
+      <div class="app-header-social">
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">JQ的ajax点击事件只执行第一次的解决方案</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Sep 29, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          1 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://zhengfanhua.github.io/tags/jq/">jq</a></div></div>
+    </header>
+    <div class="post-content">
+      
+
+<h3 id="最近在项目中用到了ajax的方法-在中途遇到了一个小障碍-ajax请求是正确的-可是点击事件只执行第一次点击-第二次点击的时候就无效了-只有刷新页面之后才可以点击-点击之后再点击还是无效-代码如下">最近在项目中用到了ajax的方法，在中途遇到了一个小障碍，ajax请求是正确的，可是点击事件只执行第一次点击，第二次点击的时候就无效了，只有刷新页面之后才可以点击，点击之后再点击还是无效。代码如下：</h3>
+
+<pre><code>$(&quot;.ttx&quot;).click(function(){
+var abc=$(this).attr('id');
+$.ajax({
+url: 'user.php?act=tuan_check',//请求地址
+type: 'GET',//用get方式获取
+dataType: 'html',//请求数据类型为html
+data: {user_id:abc,pass:&quot;yes&quot;},//重要：请求地址后面所带参数，格式/user.php?act=tuan_check&amp;user_id=abc&amp;pass=yes
+contentType: &quot;application/json; charset=utf-8&quot;,//请求内容格式
+timeout: 10000,//超时10秒后报错
+success: function(data){//请求成功后执行的函数，可以用alert(data);看看请求的数据以查看通过率
+$('#'+abc).removeClass('ttx').addClass('bfo2').html(&quot;已通过&quot;);
+},
+error: function(err){//请求失败后执行的函数
+alert(&quot;正在请求，请稍候...&quot;);
+}});})
+</code></pre>
+
+<h3 id="这个也是标准的ajax请求后台数据代码-进行前台会员审核通过与不通过的ajax操作-大家参考一下-只是点击事件出现了问题-其实是这种click写法对动态写入的dom无效-因为第一次点击的时候我改变了class值-所以单纯的click无法找到更改的class-所以只适合单一的点击事件-修复后代码如下">这个也是标准的ajax请求后台数据代码，进行前台会员审核通过与不通过的ajax操作，大家参考一下。只是点击事件出现了问题，其实是这种click写法对动态写入的dom无效，因为第一次点击的时候我改变了class值，所以单纯的click无法找到更改的class，所以只适合单一的点击事件，修复后代码如下：</h3>
+
+<pre><code>$(&quot;.ttx&quot;).live('click',function(){
+var abc=$(this).attr('id');
+$.ajax({
+url: 'user.php?act=tuan_check',
+type: 'GET',
+dataType: 'html',
+data: {user_id:abc,pass:&quot;yes&quot;},
+contentType: &quot;application/json; charset=utf-8&quot;,
+timeout: 10000,
+success: function(data){
+$('#'+abc).removeClass('ttx').addClass('bfo2').html(&quot;已通过&quot;);},
+error: function(err){
+alert(&quot;正在请求，请稍候...&quot;);
+}});})
+</code></pre>
+
+<h1 id="扩展阅读-jq的点击事件大全">扩展阅读：jq的点击事件大全：</h1>
+
+<h3 id="1-bind绑定事件-qiuye-bind-click-function">1.bind绑定事件 $(&ldquo;#qiuye&rdquo;).bind(&lsquo;click&rsquo;,function(){&hellip;});</h3>
+
+<p>绑定事件，可绑定多个事件： $(&lsquo;#qiuye&rsquo;).bind(&lsquo;click mouseover&rsquo;,function(){&hellip;});</p>
+
+<p>可绑定多个处理函数： $(&lsquo;#qiuye&rsquo;).bind({ click:function(){&hellip;}, mouseover:function(){&hellip;} })</p>
+
+<h3 id="2-one一次性点击-只执行第一次点击-第二次点击将不再起作用-除了刷新页面">2.One一次性点击，只执行第一次点击，第二次点击将不再起作用，除了刷新页面。</h3>
+
+<p>$(&lsquo;#qiuye&rsquo;).one(&lsquo;click&rsquo;,function(){ alert(&lsquo;a&rsquo;); })</p>
+
+<h3 id="3-live可绑定动态添加的html元素-用js写入的文档一样可以识别">3.live可绑定动态添加的html元素，用js写入的文档一样可以识别。</h3>
+
+<p>$(&lsquo;#qiuye&rsquo;).live(&lsquo;click,function(){&hellip;})</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
